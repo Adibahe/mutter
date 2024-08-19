@@ -1,0 +1,10 @@
+# Refer this link for documentation
+# https://github.com/typst/hayagriva/blob/main/docs/file-format.md
+
+mls:
+  type: web
+  title: Messaging Layer Security(MLS) Protocol
+  author: ["R. Barnes of Cisco",  "B. Beurdouche of  Inria & Mozilla", " R. Robert of Phoenix R&D", " J. Millican of Meta Platforms", " E. Omara", "K. Cohn-Gordon of University of Oxford" ]
+  organization: IETF
+  date: 2023-07
+  url: https://www.rfc-editor.org/rfc/rfc9420.html
