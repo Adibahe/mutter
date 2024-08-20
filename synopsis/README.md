@@ -1,4 +1,4 @@
-# Mumble 
+# Mutter 
 
 To make `synopsis.pdf` install [typst](https://typst.app/) and run:
 

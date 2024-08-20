@@ -1,38 +1,38 @@
-#show link : underline
-
 #align(center)[ 
 = Mutter
-= Secure, Ephemeral and Pseudo-Anonymous Peer to Peer Chat Application
+= Peer-to-Peer Chat Application with Ephemeral Identities  
 \
-*Synopsis submitted to \ Shri Ramdeobaba College of Engineering & Management, Nagpur in partial fulfillment of requirement for the award of the degree of*
+==== Synopsis submitted to \ Shri Ramdeobaba College of Engineering & Management, Nagpur \ in partial fulfillment of requirement for the award of the degree of
 
-= Bachelor of Technology (B.Tech)
+== Bachelor of Technology (B.Tech)
 
-In
+_*In*_
 
-= COMPUTER SCIENCE AND ENGINEERING \ (Cyber Security)
+=== COMPUTER SCIENCE AND ENGINEERING \ (Cyber Security)
 
-_*By*_\ 
-  Aditya Rameshwar Bahe (28) \
-  Arnav Dinesh Varhade (34)\
-  Himanshu Hemraj Pawar (43)\
-  Umesh Suresh Babde (65)\
+*_By_*\ 
+  Aditya Bahe  \
+  Arnav Varhade \
+  Himanshu Pawar \
+  Umesh Babde \
 _*Guide*_ \
   Prof. Firdous Sadaf\
 
 #image("logo.jpeg", fit: "contain", height: 15%)
 
 
-*Department of Computer Science and Engineering -- Cyber Security \ Shri Ramdeobaba College of Engineering & Management, Nagpur 440 013*
+==== Department of Computer Science and Engineering -- Cyber Security \ Shri Ramdeobaba College of Engineering & Management, Nagpur 440 013
 
 (An Autonomous Institute affiliated to Rashtrasant Tukdoji Maharaj \ Nagpur University Nagpur)
 
 *August 2024*
+
 ]
-#pagebreak(weak: false)
+
+#pagebreak()
 
 = Mutter
-== Secure, Ephemeral and Pseudo-Anonymous Peer to Peer Chat Application
+= Peer-to-Peer Chat Application with Ephemeral Identities 
 
 === Problem Definition:
 
@@ -48,17 +48,19 @@ We quite simply cannot rely on the for-profit companies whose sole objective is 
 === Project Objective
 
 + To develop a Peer-to-Peer (P2P) messaging application that provides ephemeral and pseudo-anonymous identities to it users and aims to erase all the records of messages and identities after every session under every circumstances.
-+ To demonstrate that P2P application can be replace the current messaging platform for atleast some use cases (if not for all) as we have very powerful computers with reasonable network access.
++ To demonstrate that P2P application can replace the current messaging platform for atleast some use cases (if not for all) as we have very powerful computers with reasonable network access.
 
 === Proposed Plan of Work
-*_WIP_*
++ Achieve connection between peers using _mDNS_ or _KademliaDHT_ and join/create a _Room_ over a secure channel _WebTranport_ or _Secure WebSockets_ as fallback in case _UDP_ is blocked. 
++ Create a protocol for _communication_ and _moderation_ among peers, setup _Gossipsub_ and prepare API for frontends. 
++ Make Terminal UI for testing and Web UI for final user.  
+ 
 
 === Methodology
 
 + The connection will be bootstrapped with help of _libp2p_ which will use _mDNS_ or _kDHT_ depending on the conditions and will establish direct or relayed connection between peers.
 + Each peer will be authenticated by _Topic Name_. Once the _Room_ is created that is each peers IP address is known, no new peer can be added.
 + _PubSub_ channel is created over _WebTransport_ or as fallback _Secure Websockets_.
-// #link("https://en.wikipedia.org/wiki/Messaging_Layer_Security")[Messaging Layer Security] or 
 + And each participant will make sure that each of other peer is reachable by regularly pinging: 
   - If peers is not able to connect to not even a single other peer its session is terminated gracefully and all the records deleted for that peer.
   - The room will only be destroyed after the last peer disconnects
@@ -69,22 +71,24 @@ We quite simply cannot rely on the for-profit companies whose sole objective is 
   - KademliaDHT
 - mDNS
 - WebTransport / WebSockets
+// - libSQL
 
 === Functional Specification
-*_WIP_*
+
+==== Libp2p
+Libp2p is open source networking stack which handles transport protocols, secure channels, stream multiplexers, peer discovery, messaging, NAT traversal, etc.
+Libp2p is modular stack as this builds on top established infrastructure, protocols and standards. It powers many global scale distributed systems like IPFS, Ethereum, Filecoin, etc. 
 
 === Project Scope:
-  - Design and implementation of simple peer to peer messaging with ephemeral and (pseudo)anonymous identities by leveraging currently available protocols, algorithms and technology.
+  - Design and implementation of simple peer to peer messaging with ephemeral and pseudo anonymous identities by leveraging currently available protocols, algorithms and technology.
   - Try to make guarantee records of each conversation is erased under all circumstances
-  - Secure the messages.
-  //   - #link("https://en.wikipedia.org/wiki/Messaging_Layer_Security")[Messaging Layer Security]
+  // - Secure the messages.
+  - Moderation policies and mechanism.
 
 === Outside the Project Scope:
   - High Fault Tolerance
   - Asynchronous Messaging
   - Feature parity relative to other platforms.
-  // - Moderation with help of Consensus mechanism
-  // - Firewall #link("https://en.wikipedia.org/wiki/Hole_punching_(networking)")[Holepunching]
 
 \ \
 
@@ -107,3 +111,7 @@ We quite simply cannot rely on the for-profit companies whose sole objective is 
 )
 \ 
 *Approved by (with approval date):*
+
+// #link("https://en.wikipedia.org/wiki/Messaging_Layer_Security")[Messaging Layer Security] or 
+//   - #link("https://en.wikipedia.org/wiki/Messaging_Layer_Security")[Messaging Layer Security]
+// - Firewall #link("https://en.wikipedia.org/wiki/Hole_punching_(networking)")[Holepunching]
