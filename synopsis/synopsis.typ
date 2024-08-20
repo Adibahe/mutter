@@ -11,10 +11,10 @@ _*In*_
 === COMPUTER SCIENCE AND ENGINEERING \ (Cyber Security)
 
 *_By_*\ 
-  Aditya Bahe  \
-  Arnav Varhade \
-  Himanshu Pawar \
-  Umesh Babde \
+  Aditya Bahe(28)  \
+  Arnav Varhade(34) \
+  Himanshu Pawar(43) \
+  Umesh Babde(65) \
 _*Guide*_ \
   Prof. Firdous Sadaf\
 
@@ -74,6 +74,47 @@ We quite simply cannot rely on the for-profit companies whose sole objective is 
 // - libSQL
 
 === Functional Specification
++ Gossipsub
+  - Topic-based Subscription: Nodes can subscribe to specific topics of interest.
+  - Message Propagation: Messages are propagated through a network of nodes based on their subscriptions.
+  - Floodsub Compatibility: Ensure backward compatibility with the Floodsub protocol.
+  - Peer Scoring: Implement peer scoring to mitigate spam and Sybil attacks by evaluating peers based on their behavior.
++ KademliaDHT
+  - Purpose:
+    To enable peer discovery and efficient retrieval of content in a distributed network.
+
+  - Routing Table: Maintain a routing table to store information about neighboring peers.
+  - Node Lookup: Allow nodes to find other peers by querying the network.
+  - Content Storage & Retrieval: Enable the storage of key-value pairs in the DHT and retrieval by querying the network.
+  - Iterative & Recursive Querying: Support both iterative and recursive querying mechanisms.
+
++ mDNS
+  - Peer Advertisement: Each node broadcasts its presence on the local network using mDNS.
+  - Service Discovery: Nodes can discover other peers offering the same service on the local network.
+  - Automatic Connection: Automatically connect to discovered peers to form a local network cluster.
+
++  WebTransport / WebSockets
+  - Bidirectional Communication: Enable real-time, bidirectional communication between peers.
+  - Transport Layer Agnostic: Implement a mechanism to switch between WebTransport and WebSockets based on availability and performance.
+  - Multiplexing: Support multiple streams of data over a single connection.
+  - Security: Ensure transport layer security (TLS) is used to protect data in transit.
+
++ Integration
+  - Interoperability:
+    Ensure that all components (libp2p, mDNS, WebTransport/WebSockets) work seamlessly together.
+
+  - Scalability:
+    The system should be able to scale from a few nodes to thousands, maintaining performance and reliability.
+
+  - Extensibility:
+    The system should be modular, allowing for the easy addition of new protocols or components.
+
++ Documentation
+  - User Documentation:
+    Provide clear and comprehensive documentation for users on how to set up, configure, and use the system.
+
+  - API Documentation:
+    Provide detailed API documentation for developers integrating the system into their applications.
 
 ==== Libp2p
 Libp2p is open source networking stack which handles transport protocols, secure channels, stream multiplexers, peer discovery, messaging, NAT traversal, etc.
