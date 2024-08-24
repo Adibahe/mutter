@@ -1,23 +1,22 @@
 #align(center)[ 
-= Mutter
-= Secure Peer-to-Peer Chat Application with Ephemeral Identities  
-\
-==== Synopsis submitted to \ Shri Ramdeobaba College of Engineering & Management, Nagpur \ in partial fulfillment of requirement for the award of the degree of
-
+= Mutter \ A Secure Peer-to-Peer Chat Application with Ephemeral Identity
+=== Synopsis submitted to 
+== Shri Ramdeobaba College of Engineering & Management, Nagpur
+=== in partial fulfillment of requirement for the award of the degree of
 == Bachelor of Technology (B.Tech)
-
+\
 _*In*_
-
-=== COMPUTER SCIENCE AND ENGINEERING \ (Cyber Security)
-
-*_By_*\ 
-  Aditya Bahe(28)  \
-  Arnav Varhade(34) \
-  Himanshu Pawar(43) \
-  Umesh Babde(65) \
-_*Guide*_ \
+\
+== COMPUTER SCIENCE AND ENGINEERING \ (Cyber Security) \
+\
+_*By*_\ 
+  Aditya Bahe  \
+  Arnav Varhade \
+  Himanshu Pawar \
+  Umesh Babde \ \
+_*Guide*_ \ 
   Prof. Firdous Sadaf\
-
+\
 #image("logo.jpeg", fit: "contain", height: 15%)
 
 
@@ -31,52 +30,64 @@ _*Guide*_ \
 
 #pagebreak()
 
+#align(center)[
 = Mutter
 = Secure Peer-to-Peer Chat Application with Ephemeral Identities 
+]
+\
+#par(justify: true)[
 
-=== Problem Definition:
-
+//TODO; this seems like introduction
+// rewrite this 
+== Problem Definition:
+\
 In today's digital age, secure and private communication is essential.\
 Contemporary messaging platform _own each and every user's identity and control all communications_, most of our communication is handled by _publically traded for-profit organizations_ who are willing to use every bit of information it can find about _user/product_ on and off the platform so that they can extract maximum profit which, they then use to
-+ crush or acquire competetion,
-+ lobby for less or no regulations,
-+ form secret alliances with other companies,
-+ sell data to other companies and governments without consent, etc
+- crush or acquire competetion,
+- lobby for less or no regulations,
+- form secret alliances with other companies,
+- sell data to other companies and governments without consent, etc
 to make more money and which they then spend to reinforce their walled garden's strength all while degrading user experience, undermining society with endless stream of ads and spam and false news by making an black box algorithm in-charge of platform.\
 We quite simply cannot rely on the for-profit companies whose sole objective is to monetize our every action on their platform in every way possible.\
 
-=== Project Objective
 
+== Project Objective
+// spite this into 2 parts instead of one
 + To develop a Peer-to-Peer (P2P) messaging application that provides ephemeral and pseudo-anonymous identities to it users and aims to erase all the records of messages and identities after every session under every circumstances.
 + To demonstrate that P2P application can replace the current messaging platform for atleast some use cases (if not for all) as we have very powerful computers with reasonable network access.
 
-=== Proposed Plan of Work
-+ Achieve connection between peers using _mDNS_ or _KademliaDHT_ and join/create a _Room_ over a secure channel _WebTranport_ or _Secure WebSockets_ as fallback in case _UDP_ is blocked. 
+== Proposed Plan of Work
++ Achieve connection between peers using _mDNS_ and join/create a _Room_ over a secure channel.
+//  _Secure WebSockets_ as fallback in case _UDP_ is blocked. 
+// _WebTranport_ or 
+// or _KademliaDHT_ 
 + Layer _Messaging Layer Security_ over the created mesh network 
 + Create a protocol for _communication_ and _moderation_ among peers.//, setup _Gossipsub_ and prepare API for frontends. 
 + Make Terminal UI for testing and Web UI for final user.  
  
 
-=== Methodology
-
-+ The connection will be bootstrapped with help of _libp2p_ which will use _mDNS_ or _AminoDHT_ depending on the conditions and will establish direct or relayed connection between peers.
+== Methodology
+// add diagram
++ The connection will be bootstrapped with help of _libp2p_ which will use _mDNS_.
+//or _AminoDHT_ depending on the conditions and will establish direct or relayed connection between peers.
 + Each peer will be authenticated by _Topic Name_. Once the _Room_ is created that is each peers IP address is known, no new peer can be added.
 // + _PubSub_ channel is created over _WebTransport_ or as fallback _Secure Websockets_.
-+ Group created which  
+// + Group created which 
++ Once _mesh_ network is established along peers then secure channel is establised with help of _OpenMLS_. 
 + And each participant will make sure that each of other peer is reachable by regularly pinging: 
   - If peers is not able to connect to not even a single other peer its session is terminated gracefully and all the records deleted for that peer.
   - The room will only be destroyed after the last peer disconnects
 
-=== Technology
-- Libp2p
+== Technology
++ Libp2p
   // - Gossipsub
   // - KademliaDHT
-- mDNS
-- Messaging Layer Security
++ mDNS
++ Messaging Layer Security
 // - WebTransport / WebSockets
 // - libSQL / sqlite3
 
-=== Functional Specification
+== Functional Specification
 
 ==== Libp2p
 Libp2p is open source networking stack which handles transport protocols, secure channels, stream multiplexers, peer discovery, messaging, NAT traversal, etc.
@@ -120,19 +131,21 @@ It is used on global scale distributed systems like IPFS, Ethereum, Filecoin, et
 //   - User Documentation: Provide clear and comprehensive documentation for users on how to set up, configure, and use the system.
 //   - API Documentation: Provide detailed API documentation for developers integrating the system into their applications.
 
-=== Project Scope:
+== Project Scope:
   - Design and implementation of simple peer to peer messaging with ephemeral and pseudo anonymous identities by leveraging currently available protocols, algorithms and technology.
-  - Try to make guarantee records of each conversation is erased under all circumstances
+  - Try to make guarantee records of each conversation is erased under all circumstances.
   - Secure messages.
-  - Moderation policies and mechanism.
+  // - Moderation policies and mechanism.
 
-=== Outside the Project Scope:
+== Outside the Project Scope:
   - High Fault Tolerance
   - Asynchronous Messaging
   - Feature parity relative to other platforms.
 
+== Reference 
+// to the research papers
+]
 \
-
 #table(  
   columns: (1fr, 4fr, 4fr),
   table.header(
