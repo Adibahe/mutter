@@ -1,0 +1,18 @@
+---
+config:
+    theme: neutral
+    look: handDrawn
+---
+gantt
+    title Plan of Work
+    dateFormat  YY-MM-DD
+    section Core
+    Achieve P2P Connection with mDNS        :a1, 24-08-26, 7d
+    Testing of network       :24-08-26, 42d
+    Create custom protocol to create Room       :a2, after a1, 7d
+    Integration with WebUI      :milestone, 
+    Create binding for interfaces       :after a2, 28d
+    Add Messaging Layer Security      :a3, after a2, 14d
+    First Usable Build      :milestone,
+    Add moderation and resilience features      :a4, after a3, 14d
+    Final Build     :milestone,

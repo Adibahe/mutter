@@ -57,14 +57,14 @@ We quite simply cannot rely on the for-profit companies whose sole objective is 
 + To demonstrate that P2P application can replace the current messaging platform for atleast some use cases (if not for all) as we have very powerful computers with reasonable network access.
 
 == Proposed Plan of Work
-+ Achieve connection between peers using _mDNS_ and join/create a _Room_ over a secure channel.
-//  _Secure WebSockets_ as fallback in case _UDP_ is blocked. 
-// _WebTranport_ or 
-// or _KademliaDHT_ 
-+ Layer _Messaging Layer Security_ over the created mesh network 
-+ Create a protocol for _communication_ and _moderation_ among peers.//, setup _Gossipsub_ and prepare API for frontends. 
-+ Make Terminal UI for testing and Web UI for final user.  
- 
+// + Achieve connection between peers using _mDNS_ and join/create a _Room_ over a secure channel.
+// //  _Secure WebSockets_ as fallback in case _UDP_ is blocked. 
+// // _WebTranport_ or 
+// // or _KademliaDHT_ 
+// + Layer _Messaging Layer Security_ over the created mesh network 
+// + Create a protocol for _communication_ and _moderation_ among peers.//, setup _Gossipsub_ and prepare API for frontends. 
+// + Make Terminal UI for testing and Web UI for final user.  
+#image("Plan of Work.svg")
 
 == Methodology
 // add diagram
@@ -137,7 +137,7 @@ It is used on global scale distributed systems like IPFS, Ethereum, Filecoin, et
   - Secure messages.
   // - Moderation policies and mechanism.
 
-== Outside the Project Scope:
+== Outside Project Scope:
   - High Fault Tolerance
   - Asynchronous Messaging
   - Feature parity relative to other platforms.
