@@ -1,0 +1,9 @@
+flowchart LR
+    S[Start Mutter] --> |Start Discovery| A{{Pick Role}} 
+    A --> |Join| J[Get room name, Pass Nickname and wait to be Added]
+    A --> |Create| C[Create room and wait for request]
+    C --> C2{{Get all the peers}}
+    J --> C2
+    C2 --> |End Discovery| C3[Form Mesh Network]
+    C3 --> S1[Secure mesh OpenMLS]
+    S1 --> |Make Shared Key| S2[Start Conversations]

@@ -68,15 +68,16 @@ We quite simply cannot rely on the for-profit companies whose sole objective is 
 
 == Methodology
 // add diagram
-+ The connection will be bootstrapped with help of _libp2p_ which will use _mDNS_.
-//or _AminoDHT_ depending on the conditions and will establish direct or relayed connection between peers.
-+ Each peer will be authenticated by _Topic Name_. Once the _Room_ is created that is each peers IP address is known, no new peer can be added.
-// + _PubSub_ channel is created over _WebTransport_ or as fallback _Secure Websockets_.
-// + Group created which 
-+ Once _mesh_ network is established along peers then secure channel is establised with help of _OpenMLS_. 
-+ And each participant will make sure that each of other peer is reachable by regularly pinging: 
-  - If peers is not able to connect to not even a single other peer its session is terminated gracefully and all the records deleted for that peer.
-  - The room will only be destroyed after the last peer disconnects
+// + The connection will be bootstrapped with help of _libp2p_ which will use _mDNS_.
+// //or _AminoDHT_ depending on the conditions and will establish direct or relayed connection between peers.
+// + Each peer will be authenticated by _Topic Name_. Once the _Room_ is created that is each peers IP address is known, no new peer can be added.
+// // + _PubSub_ channel is created over _WebTransport_ or as fallback _Secure Websockets_.
+// // + Group created which 
+// + Once _mesh_ network is established along peers then secure channel is establised with help of _OpenMLS_. 
+// + And each participant will make sure that each of other peer is reachable by regularly pinging: 
+//   - If peers is not able to connect to not even a single other peer its session is terminated gracefully and all the records deleted for that peer.
+//   - The room will only be destroyed after the last peer disconnects
+#image("Metho.png", fit: "contain") 
 
 == Technology
 + Libp2p
