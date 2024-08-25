@@ -1,0 +1,16 @@
+graph TD;
+    A[Start] --> B{Bootstrap Connection};
+    B --> |mDNS| C[Establish Direct or Relayed Connection];
+    B --> |AminoDHT| C[Establish Direct or Relayed Connection];
+    C --> D[Authenticate Peer by Topic Name];
+    D --> E{Has the Room been created, <br>and are all peers' <br>IP addresses known?};
+    E --> |Yes| F[No New Peer Can Be Added To Room];
+    F --> G[Establish Mesh Network];
+    G --> H[Secure Channel Established with OpenMLS];
+    H --> I{Ping for Reachability};
+    I --> |Cannot Connect| J[Terminate Session and Delete Records];
+    I --> |Can Connect| K[Continue Checking Peers];
+    J --> L{Last Peer Disconnecting?};
+    L --> |Yes| M[Destroy Room];
+    M --> N[End];
+    K --> L;
