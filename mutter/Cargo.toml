@@ -4,5 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+anyhow = "1.0.86"
 libp2p = { version = "0.54.1", features = ["tokio", "macros", "mdns", "quic", "ping", "identify"] }
 tokio = { version = "1.39.3", features = ["full"] }

@@ -1446,6 +1446,7 @@ dependencies = [
 name = "mutter"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "libp2p",
  "tokio",
 ]
