@@ -2,11 +2,12 @@ use libp2p::{
     core::{muxing::StreamMuxerBox, Transport},
     futures::StreamExt,
     identity::{self, PublicKey},
-    mdns::{tokio::Behaviour as MdnsBehaviour, Config as MdnsConfig},
+    mdns::{self, tokio::Behaviour as MdnsBehaviour, Config as MdnsConfig},
     quic,
-    swarm::{Config, NetworkBehaviour},
-    PeerId, Swarm,
+    swarm::{Config, NetworkBehaviour, SwarmEvent},
+    Swarm,
 };
+use tokio::select;
 
 const PROTOCOL_VERSION: (u8, u8, u8) = (1, 0, 0);
 
@@ -16,7 +17,7 @@ async fn main() {
     // prepare id for the swarm
     let id = libp2p::PeerId::from_public_key(&keypair.public());
     // prepare transport for the swarm
-    //TODO: also prepare a fallback if the quic connection fails
+    //TODO: also prepare a tcp fallback if the quic connection fails
     let transport = {
         let quic_config = quic::Config::new(&keypair);
         let quic_transport = quic::tokio::Transport::new(quic_config);
@@ -29,7 +30,7 @@ async fn main() {
 
     // Swarm contains the whole state of network where the most important bit is
     // *Behaviour* which dictates the behaviour of peer
-    let swarm = Swarm::new(
+    let mut swarm = Swarm::new(
         transport
             .map(|(id, conn), _| (id, StreamMuxerBox::new(conn)))
             .boxed(),
@@ -38,7 +39,30 @@ async fn main() {
         // prepare config for the swarm
         Config::with_tokio_executor(),
     );
-    dbg!(swarm.network_info());
+
+    swarm
+        .listen_on("/ip4/0.0.0.0/udp/0/quic-v1".parse().unwrap())
+        .unwrap();
+
+    println!("My peer ID is: {}", swarm.local_peer_id());
+
+    loop {
+        select! {
+            event = swarm.select_next_some() => match event {
+                SwarmEvent::Behaviour(MutterBehaviourEvent::Mdns(mdns::Event::Discovered(list))) => {
+                    for (peer_id, _multiaddr) in list {
+                        println!("mDNS discovered a new peer: {peer_id}");
+                    }
+                },
+                SwarmEvent::Behaviour(MutterBehaviourEvent::Mdns(mdns::Event::Expired(list))) => {
+                    for (peer_id, _multiaddr) in list {
+                        println!("mDNS discover peer has expired: {peer_id}");
+                    }
+                },
+                _ => {},
+            }
+        }
+    }
 }
 
 #[derive(NetworkBehaviour)]

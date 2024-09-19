@@ -2,4 +2,5 @@ build:
     cargo b 
 
 run-with-net: 
+    podman run --privileged --network podman1 -v $(pwd)/target:/target  -it ubuntu:latest ./target/debug/mutter
     

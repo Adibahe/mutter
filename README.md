@@ -17,3 +17,4 @@ which work in only in small network for now and is will use OpenMLS for security
     
 + [ ] Misc
   + [ ] Create Container / Docker File for testing 
+  + [ ] Prepare exhaustive error type
