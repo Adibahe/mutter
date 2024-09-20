@@ -91,111 +91,110 @@ impl MutterConfig {
     }
 }
 
-// First the connection is established and then group name is sent to
-// the room's creator and if all is well the peer is added to `waiting room` of chat
-enum Grouping {
-    Create {
-        group_name: String,
-        //TODO: which Id will best identify a Peer
-        peers: Vec<PeerId>,
-        //TODO: which Id will best identify a Malicious Node it is not PeerId for sure
-        malicious_nodes: Vec<PeerId>,
-    },
-    Join {
-        group_name: String,
-    },
-}
+mod grouping {
+    use libp2p::{swarm::StreamProtocol, Multiaddr, PeerId};
 
-enum GroupingRole {
-    Create,
-    Join,
-}
-
-impl Grouping {
-    fn new(role: GroupingRole, group_name: Option<String>) -> Self {
-        match (role, group_name) {
-            (GroupingRole::Create, None) => Grouping::Create {
-                group_name: generate_group_name(),
-                peers: Vec::new(),
-                malicious_nodes: Vec::new(),
-            },
-            (GroupingRole::Join, Some(group_name)) => Grouping::Join {
-                group_name: group_name,
-            },
-            _ => unreachable!(),
-        }
+    /// First the connection is established and then group name is sent to
+    /// the room's creator and if all is well the peer is added to `waiting room` of chat
+    enum Grouping {
+        Create {
+            group_name: String,
+            nickname: String,
+            //TODO: which Id will best identify a Peer
+            /// Peers waiting contains list of peers waiting and all peer have to redo authentication
+            /// when asked to in order to show that they are still waiting
+            peers_waiting: Vec<PeerId>,
+            //TODO: which Id will best identify a Malicious Node it is not PeerId for sure
+            // Will contain a list of nodes which are behaving maliciously
+            malicious_nodes: Vec<PeerId>,
+        },
+        Join {
+            group_name: String,
+            nickname: String,
+        },
     }
 
-    //TODO: maybe we make this more peer to peer like that is every peer does something
-    // appropriate not just throwing errors if the role does not match
+    enum GroupingRole {
+        Create,
+        Join,
+    }
 
-    // Can only be triggered by Creator
-    fn listen_for_joins(&mut self) {
-        // need to establish connecting with new peer over some channel and listen for group name
-        if let Self::Create {
-            group_name,
-            peers,
-            malicious_nodes,
-        } = self
+    enum Event {
+        Joined(PeerId),
+        Waiting(PeerId),
+        WrongGroupName(PeerId, Multiaddr),
+    }
+
+    // This protocol name will be appended to the mutliaddress
+    pub const PROTOCOL_NAME: StreamProtocol = StreamProtocol::new("/muttgroup/1.0.0");
+
+    impl Grouping {
+        fn new(role: GroupingRole, nickname: String, group_name: Option<String>) -> Self {
+            match (role, group_name) {
+                (GroupingRole::Create, None) => Grouping::Create {
+                    group_name: generate_group_name(),
+                    nickname,
+                    peers_waiting: Vec::new(),
+                    malicious_nodes: Vec::new(),
+                },
+                (GroupingRole::Join, Some(group_name)) => Grouping::Join {
+                    group_name,
+                    nickname,
+                },
+                _ => unreachable!(),
+            }
+        }
+    }
+    /*
+    impl NetworkBehaviour for Grouping {
+        type ConnectionHandler;
+
+        type ToSwarm;
+
+        fn handle_established_inbound_connection(
+            &mut self,
+            _connection_id: libp2p::swarm::ConnectionId,
+            peer: PeerId,
+            local_addr: &libp2p::Multiaddr,
+            remote_addr: &libp2p::Multiaddr,
+        ) -> Result<libp2p::swarm::THandler<Self>, libp2p::swarm::ConnectionDenied> {
+            todo!()
+        }
+
+        fn handle_established_outbound_connection(
+            &mut self,
+            _connection_id: libp2p::swarm::ConnectionId,
+            peer: PeerId,
+            addr: &libp2p::Multiaddr,
+            role_override: libp2p::core::Endpoint,
+            port_use: libp2p::core::transport::PortUse,
+        ) -> Result<libp2p::swarm::THandler<Self>, libp2p::swarm::ConnectionDenied> {
+            todo!()
+        }
+
+        fn on_swarm_event(&mut self, event: libp2p::swarm::FromSwarm) {
+            todo!()
+        }
+
+        fn on_connection_handler_event(
+            &mut self,
+            _peer_id: PeerId,
+            _connection_id: libp2p::swarm::ConnectionId,
+            _event: libp2p::swarm::THandlerOutEvent<Self>,
+        ) {
+            todo!()
+        }
+
+        fn poll(
+            &mut self,
+            cx: &mut std::task::Context<'_>,
+        ) -> std::task::Poll<libp2p::swarm::ToSwarm<Self::ToSwarm, libp2p::swarm::THandlerInEvent<Self>>>
         {
-            unimplemented!()
-        } else {
+            todo!()
         }
     }
-
-    fn ask_for_waiting(&mut self) {
-        // need to advertise to other peer which is hosting the room
+    */
+    fn generate_group_name() -> String {
+        unimplemented!("Generate a random phrase 2 or 3 words long ")
     }
-}
-
-impl NetworkBehaviour for Grouping {
-    type ConnectionHandler;
-
-    type ToSwarm;
-
-    fn handle_established_inbound_connection(
-        &mut self,
-        _connection_id: libp2p::swarm::ConnectionId,
-        peer: PeerId,
-        local_addr: &libp2p::Multiaddr,
-        remote_addr: &libp2p::Multiaddr,
-    ) -> Result<libp2p::swarm::THandler<Self>, libp2p::swarm::ConnectionDenied> {
-        todo!()
-    }
-
-    fn handle_established_outbound_connection(
-        &mut self,
-        _connection_id: libp2p::swarm::ConnectionId,
-        peer: PeerId,
-        addr: &libp2p::Multiaddr,
-        role_override: libp2p::core::Endpoint,
-        port_use: libp2p::core::transport::PortUse,
-    ) -> Result<libp2p::swarm::THandler<Self>, libp2p::swarm::ConnectionDenied> {
-        todo!()
-    }
-
-    fn on_swarm_event(&mut self, event: libp2p::swarm::FromSwarm) {
-        todo!()
-    }
-
-    fn on_connection_handler_event(
-        &mut self,
-        _peer_id: PeerId,
-        _connection_id: libp2p::swarm::ConnectionId,
-        _event: libp2p::swarm::THandlerOutEvent<Self>,
-    ) {
-        todo!()
-    }
-
-    fn poll(
-        &mut self,
-        cx: &mut std::task::Context<'_>,
-    ) -> std::task::Poll<libp2p::swarm::ToSwarm<Self::ToSwarm, libp2p::swarm::THandlerInEvent<Self>>>
-    {
-        todo!()
-    }
-}
-
-fn generate_group_name() -> String {
-    unimplemented!("Generate a random phrase 2 or 3 words long ")
 }
